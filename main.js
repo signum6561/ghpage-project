@@ -12,11 +12,12 @@ const editForm = document.getElementById('edit-form');
 
 const createTitle = document.getElementById('create-title');
 const createForm = document.getElementById('create-form');
-let currentFilters = {
+const currentFilters = {
   searchData: '',
-  order: '',
+  order: '', 
   isUsed: false,
 };
+
 //#region FetchAPI
 const fetchProducts = async () => {
   const res = await fetch(`${BASE_API}/products`);
@@ -245,7 +246,7 @@ const generateProductCardList = (productList) => {
 
 const generateProductCard = (product) => {
   return `
-    <div class="card base-info">
+    <div class="card base-info ${product.isUsed ? "used" : ""}">
       <p><strong>ID:</strong> ${product.id}</p>
       <p><strong>Name:</strong> ${product.name}</p>
       <p><strong>Price:</strong> ${product.price}</p>
@@ -277,17 +278,21 @@ const generateCreateProductForm = () => {
       <label for="name">Name</label
       ><input id="create-product-name" type="text" required />
     </div>
-    <div class="input-textBox">
+    <div class="input-selectBox">
       <label for="type">Type</label
-      ><input id="create-product-type" type="text" required />
+      ><select id="create-product-type" required>
+        <option value="Laptop">Laptop</option>
+        <option value="Smartphone">Smartphone</option>
+        <option value="PC">PC</option>
+      </select>
     </div>
     <div class="input-textBox">
       <label for="quantity">Quantity</label
-      ><input id="create-product-quantity" type="text" required />
+      ><input id="create-product-quantity" type="number" required min="0"/>
     </div>
     <div class="input-textBox">
       <label for="price">Price</label
-      ><input id="create-product-price" type="text" required />
+      ><input id="create-product-price" type="number" required min="0"/>
     </div>
     <div class="input-textBox">
       <label for="company">Company</label
@@ -306,17 +311,21 @@ const generateEditProductForm = () => {
     <label for="name">Name</label
     ><input id="edit-product-name" type="text" required />
   </div>
-  <div class="input-textBox">
+  <div class="input-selectBox">
     <label for="type">Type</label
-    ><input id="edit-product-type" type="text" required />
+    ><select id="edit-product-type" required>
+      <option value="Laptop">Laptop</option>
+      <option value="Smartphone">Smartphone</option>
+      <option value="PC">PC</option>
+    </select>
   </div>
   <div class="input-textBox">
     <label for="quantity">Quantity</label
-    ><input id="edit-product-quantity" type="text" required />
+    ><input id="edit-product-quantity" type="number" required min="0"/>
   </div>
   <div class="input-textBox">
     <label for="price">Price</label
-    ><input id="edit-product-price" type="text" required />
+    ><input id="edit-product-price" type="number" required min="0"/>
   </div>
   <div class="input-textBox">
     <label for="company">Company</label
